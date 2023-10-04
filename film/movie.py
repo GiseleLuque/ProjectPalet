@@ -6,7 +6,7 @@ from werkzeug.exceptions import abort
 from flaskr.auth import login_required
 from flaskr.db import get_db
 
-bp = Blueprint('blog', __name__)
+bp = Blueprint('movie', __name__)
 
 @bp.route('/')
 def index():
@@ -15,3 +15,7 @@ def index():
         "SELECT title, release_year, description FROM film ORDER BY title ASC;"
     ).fetchall()
     return render_template('movie/index.html', movies=movies)
+
+@bp.route('/detalle/<int:id>')
+def detalle(id):
+    pass
