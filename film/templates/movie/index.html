@@ -1,20 +1,14 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}--{% endblock %}</h1>
+  <h1>{% block title %}Peliculas{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
   {% for pelicula in movies %}
-    <article class="post">
-      <header>
-        <div>
-          <h1>{{ pelicula['title'] }}</h1>
-          Release years: {{ pelicula['release_year'] }} </div>
-        </div>
-      </header>
-      <p class="body">{{ pelicula['description'] }}</p>
-    </article>
+  <a class="action" href="{{ url_for('movie.detalle', id=pelicula['film_id']) }}">
+    {{ pelicula['title'] }} ({{ pelicula['release_year'] }})</a>
+    
     {% if not loop.last %}
       <hr>
     {% endif %}

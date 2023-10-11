@@ -3,8 +3,8 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-from flaskr.auth import login_required
-from flaskr.db import get_db
+
+from film.db import get_db
 
 bp = Blueprint('movie', __name__)
 
@@ -12,10 +12,19 @@ bp = Blueprint('movie', __name__)
 def index():
     db = get_db()
     movies = db.execute(
-        "SELECT title, release_year, description FROM film ORDER BY title ASC;"
+        "SELECT film_id, title, release_year, description FROM film ORDER BY title ASC;"
     ).fetchall()
     return render_template('movie/index.html', movies=movies)
 
+
 @bp.route('/detalle/<int:id>')
 def detalle(id):
-    pass
+    db = get_db()
+    pelicula = db.execute(
+        """SELECT title AS titulo, rental_duration AS duracion_alquiler, release_year AS año, description AS descripcion
+        FROM film
+        WHERE film_id = ?
+        ORDER BY title ASC;""",
+        (id,)
+    ).fetchone()
+    return render_template('movie/detalle.html', pelicula=pelicula)

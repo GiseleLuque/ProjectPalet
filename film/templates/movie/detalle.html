@@ -1,0 +1,20 @@
+
+{% extends 'base.html' %}
+{% block header %}
+{% endblock %}
+{% block content %}
+  <article class="post">
+      <header>
+        <div>
+          <h2>Titulo:</h2>
+          <h1>{{ pelicula['titulo'] }}</h1>
+          <h2>Descripcion:</h2>
+          <h1>{{ pelicula['descripcion'] }}</h1>
+          <h2>Año:</h2>
+          <h1>{{ pelicula['año'] }}</h1>
+        </div>
+      </header>
+      <h2>Días:</h2>
+      <p class="body">{{ pelicula['duracion_alquiler'] }}</p>
+    </article>
+{% endblock %}
