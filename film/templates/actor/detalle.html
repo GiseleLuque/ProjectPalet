@@ -1,0 +1,29 @@
+
+{% extends 'base.html' %}
+{% block header %}
+{% endblock %}
+{% block content %}
+  <article class="post">
+      <header>
+        <div>
+          <h2>Nombre:</h2>
+          <h1>{{ actor['first_name'] }}</h1>
+          <h2>Apellido:</h2>
+          <h1>{{ actor['last_name'] }}</h1>
+
+        </div>
+      </header>
+    </article>
+<h3>peliculas</h3>
+<ul>
+    {% for pelicula in peliculas %}
+    <li><a class="action" href="{{ url_for('movie.detalle', id=pelicula['film_id']) }}">
+      {{ pelicula['title'] }} ({{ pelicula['release_year'] }})</a>
+      
+      {% if not loop.last %}
+        <hr>
+      {% endif %}
+      </li>
+    {% endfor %}
+</ul>
+{% endblock %}

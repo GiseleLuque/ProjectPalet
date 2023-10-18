@@ -17,6 +17,7 @@ def index():
     return render_template('movie/index.html', movies=movies)
 
 
+#P6: en actor
 @bp.route('/detalle/<int:id>')
 def detalle(id):
     db = get_db()
@@ -24,7 +25,13 @@ def detalle(id):
         """SELECT title AS titulo, rental_duration AS duracion_alquiler, release_year AS año, description AS descripcion
         FROM film
         WHERE film_id = ?
-        ORDER BY title ASC;""",
+        ORDER BY title ASC""",
         (id,)
     ).fetchone()
-    return render_template('movie/detalle.html', pelicula=pelicula)
+    actores = db.execute(
+        """SELECT a.actor_id, a.first_name, a.last_name
+        FROM film_actor fa join actor a on a.actor_id = fa.actor_id
+        WHERE fa.film_id = ?""", 
+        (id,)
+    ).fetchall()
+    return render_template('movie/detalle.html', pelicula=pelicula, actores=actores)

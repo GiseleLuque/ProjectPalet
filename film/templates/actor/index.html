@@ -7,7 +7,12 @@
 {% block content %}
   <ul>
   {% for a in actors %}
-    <li>{{a['first_name']}}, {{a['last_name']}}</li>
+    <li>
+      <a class="actor" href= {{ url_for('actor.detalle', id=a['actor_id']) }}>
+        {{a['actor_id']}}, {{a['first_name']}}, {{a['last_name']}}
+      
+      </a>
+    </li>
   {% endfor %}
 </ul>
 {% endblock %}
