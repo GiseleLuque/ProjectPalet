@@ -17,4 +17,19 @@
       <h2>Días:</h2>
       <p class="body">{{ pelicula['duracion_alquiler'] }}</p>
     </article>
+
+    <h3>Actor:</h3>
+    <ul>
+        {% for actor in actores %}
+        <li><a class="action" href="{{ url_for('actor.detalle', id=actor['actor_id']) }}">
+          {{actor['first_name']}}, {{actor['last_name']}}</a>
+          
+          {% if not loop.last %}
+            <hr>
+          {% endif %}
+          </li>
+        {% endfor %}
+    </ul>
+    
 {% endblock %}
+
