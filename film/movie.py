@@ -1,13 +1,15 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for, jsonify
 )
 from werkzeug.exceptions import abort
 
 
 from film.db import get_db
 
-bp = Blueprint('movie', __name__)
+bp = Blueprint('movie', __name__, url_prefix="/movie")
+bpapi = Blueprint('movie_api', __name__, url_prefix="/api/movie")
 
+#lista de pelicula
 @bp.route('/')
 def index():
     db = get_db()
@@ -16,6 +18,14 @@ def index():
     ).fetchall()
     return render_template('movie/index.html', movies=movies)
 
+#api:
+@bpapi.route('/')
+def index_api():
+    db = get_db()
+    movies = db.execute(
+        "SELECT film_id, title, release_year, description FROM film ORDER BY title ASC;"
+    ).fetchall()
+    return jsonify(movies=movies)
 
 #P6: en actor
 @bp.route('/detalle/<int:id>')

@@ -4,6 +4,7 @@ from werkzeug.exceptions import abort
 from film.db import get_db
 
 bp = Blueprint('actor', __name__, url_prefix="/actor/")#nombra a todos actor al usar el prefix
+bpapi = Blueprint('actor_api', __name__, url_prefix="/api/actor/")
 
 #5:
 #RUTA DE actores
@@ -35,3 +36,13 @@ def detalle(id):
         (id,)
     ).fetchall()
     return render_template('actor/detalle.html', actor=actor,  peliculas=peliculas)
+
+
+#7: api de actor
+@bp.route('/')
+def index_api():
+    db = get_db()
+    actors = db.execute(
+        "SELECT actor_id, first_name, last_name FROM actor ORDER BY first_name ASC;"
+    ).fetchall()
+    return jsonify(actors=actors)
