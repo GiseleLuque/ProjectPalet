@@ -1,4 +1,7 @@
 import sqlite3
+import psycopg2 
+
+conn = psycopg2.connect("dbname=test user=postgres")
 
 import click
 from flask import current_app, g
