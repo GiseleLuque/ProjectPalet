@@ -69,5 +69,9 @@ def detalle_Mapi(id):
         WHERE fa.film_id = ?""", 
         (id,)
     ).fetchall()
+
+    for actor in actores:
+        actor["detalle_url"] = url_for("actor_api.detalle_api", id=actor["actor_id"], _external=True)
+
     return jsonify(pelicula=pelicula, actores=actores)
 

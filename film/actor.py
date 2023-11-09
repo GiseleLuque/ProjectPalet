@@ -66,11 +66,12 @@ def detalle_api(id):
         """SELECT fa.actor_id, f.film_id, f.title, f.rental_duration, f.description
         FROM film f join film_actor fa on f.film_id = fa.film_id
         WHERE fa.actor_id = ?
-        ;""",
+        """,
         (id,)
     ).fetchall()
 
-
+    for movie in peliculas:
+        movie["detalle_url"] = url_for("movie_api.detalle_Mapi", id=movie ["film_id"], _external=True)
 
     return jsonify(actor=actor,  peliculas=peliculas)
 
